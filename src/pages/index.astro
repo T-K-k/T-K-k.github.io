@@ -9,10 +9,34 @@ import { url } from "../utils/url-utils";
 const title = `${profileConfig.name} · ${siteConfig.title}`;
 const canonical = new URL(url("/"), Astro.site);
 const destinations = [
-	{ icon: "fa6-brands:github", label: "GitHub", detail: "T-K-k", href: "https://github.com/T-K-k", external: true },
-	{ icon: "material-symbols:inventory-2-outline-rounded", label: "文章归档", detail: "积累的每一步", href: url("/archive/"), external: false },
-	{ icon: "material-symbols:person-outline-rounded", label: "关于我", detail: "认识一下", href: url("/about/"), external: false },
-	{ icon: "material-symbols:rss-feed-rounded", label: "RSS 订阅", detail: "让更新与你相遇", href: url("/rss.xml"), external: false },
+	{
+		icon: "fa6-brands:github",
+		label: "GitHub",
+		detail: "T-K-k",
+		href: "https://github.com/T-K-k",
+		external: true,
+	},
+	{
+		icon: "material-symbols:inventory-2-outline-rounded",
+		label: "文章归档",
+		detail: "积累的每一步",
+		href: url("/archive/"),
+		external: false,
+	},
+	{
+		icon: "material-symbols:person-outline-rounded",
+		label: "关于我",
+		detail: "认识一下",
+		href: url("/about/"),
+		external: false,
+	},
+	{
+		icon: "material-symbols:rss-feed-rounded",
+		label: "RSS 订阅",
+		detail: "让更新与你相遇",
+		href: url("/rss.xml"),
+		external: false,
+	},
 ];
 ---
 

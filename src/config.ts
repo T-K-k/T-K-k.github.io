@@ -10,7 +10,7 @@ import { LinkPreset } from "./types/config";
 export const siteConfig: SiteConfig = {
 	title: "Code & Life",
 	subtitle: "记录学习与生活",
-	lang: "zh_CN",// Language code, e.g. 'en', 'zh_CN', 'ja', etc.
+	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	themeColor: {
 		hue: 250, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
 		fixed: false, // Hide the theme color picker for visitors
@@ -53,7 +53,7 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "/avatar_square.png",// Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	avatar: "/avatar_square.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "六月雨上街書",
 	bio: "一名正在学习 C++、算法竞赛与计算机科学的大学生。",
 	links: [],

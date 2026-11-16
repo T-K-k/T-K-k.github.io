@@ -1,0 +1,152 @@
+---
+import { Icon } from "astro-icon/components";
+import ImageWrapper from "../components/misc/ImageWrapper.astro";
+import { profileConfig, siteConfig } from "../config";
+import { url } from "../utils/url-utils";
+
+// Keep this document separate from the Fuwari layout. Links crossing between
+// the two layouts use full navigation because their Swup containers differ.
+const title = `${profileConfig.name} · ${siteConfig.title}`;
+const canonical = new URL(url("/"), Astro.site);
+const destinations = [
+	{ icon: "fa6-brands:github", label: "GitHub", detail: "T-K-k", href: "https://github.com/T-K-k", external: true },
+	{ icon: "material-symbols:inventory-2-outline-rounded", label: "文章归档", detail: "积累的每一步", href: url("/archive/"), external: false },
+	{ icon: "material-symbols:person-outline-rounded", label: "关于我", detail: "认识一下", href: url("/about/"), external: false },
+	{ icon: "material-symbols:rss-feed-rounded", label: "RSS 订阅", detail: "让更新与你相遇", href: url("/rss.xml"), external: false },
+];
+---
+
+<!doctype html>
+<html lang={siteConfig.lang.replace("_", "-")}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={profileConfig.bio} />
+		<meta name="author" content={profileConfig.name} />
+		<meta name="theme-color" content="#edf2f6" />
+		<title>{title}</title>
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" type="image/png" href={url("/favicon/favicon-light-32.png")} />
+		<link rel="alternate" type="application/rss+xml" title={siteConfig.title} href={url("/rss.xml")} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={siteConfig.title} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={profileConfig.bio} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={new URL(url("/avatar_square.png"), Astro.site)} />
+	</head>
+	<body data-no-swup>
+		<main class="welcome" data-pagefind-ignore>
+			<section class="introduction" aria-labelledby="welcome-title">
+				<header class="masthead">
+					<a class="brand" href={url("/")} aria-label={`${siteConfig.title} 欢迎页`} data-no-swup>
+						<span class="brand-icon"><Icon name="material-symbols:home-outline-rounded" /></span>
+						<span>{siteConfig.title}</span>
+					</a>
+					<span class="masthead-note">一个记录与分享的角落</span>
+				</header>
+
+				<div class="profile">
+					<ImageWrapper src={profileConfig.avatar || "/avatar_square.png"} alt={`${profileConfig.name}的头像`} class="avatar" />
+					<div class="profile-heading">
+						<p class="hello">你好，我是</p>
+						<h1 id="welcome-title">{profileConfig.name}<span class="name-dot">.</span></h1>
+					</div>
+				</div>
+				<p class="bio">{profileConfig.bio}</p>
+				<p class="invitation">在这里，写下学到的知识，也留住生活的片刻。<br />很高兴与你相遇，欢迎随便翻翻。</p>
+				<ul class="interests" aria-label="记录的主题">
+					<li>C++</li><li>算法笔记</li><li>学习与生活</li>
+				</ul>
+
+				<nav class="destinations" aria-label="了解更多">
+					{destinations.map((item) => (
+						<a class="destination" href={item.href} target={item.external ? "_blank" : undefined} rel={item.external ? "noopener noreferrer" : undefined} data-no-swup>
+							<Icon name={item.icon} class="destination-icon" />
+							<span class="destination-copy"><span class="destination-label">{item.label}</span><span class="destination-detail">{item.detail}</span></span>
+							<Icon name="material-symbols:arrow-outward-rounded" class="outward" />
+						</a>
+					))}
+				</nav>
+
+				<div class="entry">
+					<div class="entry-note"><span class="status-dot" aria-hidden="true"></span>保持好奇，慢慢积累。<span class="entry-note-en">STAY CURIOUS</span></div>
+					<a class="enter-blog" href={url("/blog/")} data-no-swup><span>进入博客</span><Icon name="material-symbols:arrow-right-alt-rounded" /></a>
+				</div>
+				<footer class="intro-footer"><span>© {new Date().getFullYear()} {profileConfig.name}</span><span>很高兴，你来过。</span></footer>
+			</section>
+
+			<aside class="landscape" aria-label="山间风景与寄语">
+				<img class="mountains" src={url("/images/welcome-mountains.jpg")} alt="星轨划过深蓝夜空，山下是层叠的雪峰" width="1600" height="1000" fetchpriority="high" />
+				<div class="landscape-shade"></div>
+				<div class="landscape-top"><span>CODE & LIFE / NOTES</span><span class="edition">01</span></div>
+				<div class="landscape-copy"><span class="quote-rule"></span><p class="eyebrow">LEARNING. CODING. LIVING.</p><h2>记录学习，<br />也记录生活<span>。</span></h2><p class="landscape-caption">每一点积累，都在成为未来的自己。</p></div>
+				<div class="landscape-bottom"><span>我的小小世界，向你敞开。</span><a href="https://unsplash.com/photos/the-night-sky-over-a-snowy-mountain-range-eVg2GOJ2A_k" target="_blank" rel="noopener noreferrer" class="photo-credit" data-no-swup>© MAREK PIWNICKI / UNSPLASH ↗</a></div>
+			</aside>
+		</main>
+	</body>
+</html>
+
+<style>
+	:global(html) { min-width: 320px; background: #edf2f6; color-scheme: light; }
+	:global(body) { margin: 0; min-height: 100svh; padding: clamp(20px, 4.2vw, 64px); display: grid; place-items: center; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; color: #203248; background: radial-gradient(ellipse at 0 0, #dfe8f0 0, transparent 65%), #edf2f6; }
+	:global(*) { box-sizing: border-box; }
+	:global(a) { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+	:global(a:focus-visible) { outline: 3px solid #6397bd; outline-offset: 5px; }
+	:global(p), :global(h1), :global(h2) { margin: 0; }
+	.welcome { display: grid; grid-template-columns: 1.15fr 1fr; width: min(1280px, 100%); min-height: 760px; border: 1px solid #dae3eb; border-radius: 30px; overflow: hidden; background: #fff; box-shadow: 0 24px 70px -35px #405d7c38; animation: arrive .7s ease both; }
+	.introduction { display: flex; flex-direction: column; padding: 40px 44px 24px; min-width: 0; }
+	.masthead { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 52px; }
+	.brand { display: inline-flex; align-items: center; gap: 11px; font-size: 17px; font-weight: 700; color: #3f7095; white-space: nowrap; }
+	.brand-icon { display: grid; place-items: center; width: 39px; height: 39px; background: #eaf2f8; border-radius: 12px; font-size: 25px; }
+	.masthead-note { font-size: 12px; color: #77889a; }
+	.profile { display: flex; gap: 20px; align-items: center; margin-bottom: 25px; }
+	.profile :global(.avatar) { width: 85px; height: 85px; flex-shrink: 0; border: 5px solid #e8f0f6; border-radius: 24px; background: #edf2f6; }
+	.profile-heading { min-width: 0; }
+	.hello { font-size: 14px; color: #6a8097; letter-spacing: 3px; margin-bottom: 9px; }
+	h1 { font-size: clamp(25px, 2.8vw, 36px); line-height: 1.3; font-weight: 750; letter-spacing: -.8px; overflow-wrap: anywhere; }
+	.name-dot { color: #477eaa; padding-left: 3px; }
+	.bio { font-size: 16px; line-height: 1.9; color: #354e65; max-width: 28em; }
+	.invitation { font-size: 14px; line-height: 1.95; color: #78899a; margin-top: 11px; }
+	.interests { display: flex; flex-wrap: wrap; list-style: none; gap: 9px; padding: 0; margin: 19px 0 29px; }
+	.interests li { font-size: 11px; color: #657e94; border-radius: 6px; padding: 5px 10px; background: #f2f6f9; letter-spacing: .3px; }
+	.destinations { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+	.destination { border: 1px solid #e0e8ef; border-radius: 14px; padding: 16px; display: flex; gap: 12px; align-items: center; min-width: 0; transition: background .2s, border-color .2s, transform .2s; }
+	.destination:hover { background: #f6f9fc; border-color: #aac4d9; transform: translateY(-2px); }
+	.destination-icon { font-size: 23px; color: #3d6b8c; flex-shrink: 0; }
+	.destination-copy { min-width: 0; display: grid; gap: 5px; }
+	.destination-label { color: #708397; font-size: 12px; }
+	.destination-detail { color: #2e465e; font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
+	.outward { margin-left: auto; color: #7c90a3; font-size: 16px; flex-shrink: 0; }
+	.entry { margin-top: auto; padding-top: 28px; }
+	.entry-note { display: flex; align-items: center; gap: 8px; border-top: 1px solid #e6edf3; padding-top: 21px; margin-bottom: 18px; color: #75889b; font-size: 12px; }
+	.status-dot { width: 6px; height: 6px; border-radius: 50%; background: #6a9a8c; }
+	.entry-note-en { margin-left: auto; font-size: 9px; letter-spacing: 1.4px; color: #8a9cab; }
+	.enter-blog { display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; min-height: 62px; border-radius: 14px; background: #365f7f; color: #fff; box-shadow: 0 8px 20px #365f7f14; font-size: 17px; font-weight: 650; transition: background .2s, box-shadow .2s; }
+	.enter-blog :global(svg) { font-size: 28px; transition: transform .2s; }
+	.enter-blog:hover { background: #294d6a; box-shadow: 0 8px 24px #365f7f28; }
+	.enter-blog:hover :global(svg) { transform: translateX(5px); }
+	.intro-footer { display: flex; justify-content: space-between; gap: 12px; font-size: 10px; color: #8595a5; margin-top: 24px; }
+	.landscape { position: relative; isolation: isolate; background: #102339; color: #fff; min-width: 0; display: flex; flex-direction: column; padding: 42px 40px 25px; overflow: hidden; }
+	.mountains, .landscape-shade { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
+	.mountains { object-fit: cover; object-position: 49% center; }
+	.landscape-shade { background: linear-gradient(180deg, #081b3570 0%, #0716291a 35%, #030b1ed9 80%, #030b1ef5 100%); }
+	.landscape-top { display: flex; justify-content: space-between; align-items: center; font-size: 11px; letter-spacing: 2.3px; color: #e0eaf2; }
+	.edition { font-size: 10px; color: #c0d1e0; border: 1px solid #c0d1e044; border-radius: 50%; width: 27px; height: 27px; display: grid; place-items: center; letter-spacing: 0; }
+	.landscape-copy { margin-top: auto; padding-top: 200px; padding-bottom: 66px; }
+	.quote-rule { display: block; width: 32px; height: 2px; background: #d6e5ee96; margin-bottom: 28px; }
+	.eyebrow { font-size: 9px; letter-spacing: 2.2px; color: #b7c9d8; margin-bottom: 15px; }
+	h2 { font-family: "Songti SC", "STSong", "SimSun", serif; font-size: clamp(34px, 3.4vw, 47px); letter-spacing: 2px; line-height: 1.45; font-weight: 700; }
+	h2 span { color: #a9c6dc; }
+	.landscape-caption { color: #ccd9e4; font-size: 12px; line-height: 1.8; margin-top: 24px; }
+	.landscape-bottom { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: #a6bacb; font-size: 9px; }
+	.photo-credit { font-size: 8px; letter-spacing: .7px; color: #a6bacb; }
+	.photo-credit:hover { color: white; }
+	@keyframes arrive { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+	@media (min-width: 1600px) { .welcome { min-height: 800px; } .introduction { padding: 48px 50px 28px; } .masthead { margin-bottom: 62px; } .landscape { padding: 48px 44px 28px; } }
+	@media (max-height: 820px) and (min-width: 761px) { :global(body) { padding: 24px; } .welcome { min-height: 650px; } .introduction { padding-top: 28px; padding-bottom: 20px; } .masthead { margin-bottom: 30px; } .profile { margin-bottom: 20px; } .profile :global(.avatar) { width: 74px; height: 74px; } .invitation { line-height: 1.75; } .interests { margin-top: 14px; margin-bottom: 20px; } .destination { padding-top: 13px; padding-bottom: 13px; } .entry { padding-top: 20px; } .entry-note { padding-top: 16px; margin-bottom: 15px; } .enter-blog { min-height: 58px; padding-top: 15px; padding-bottom: 15px; } .intro-footer { margin-top: 18px; } .landscape-copy { padding-bottom: 48px; } }
+	@media (max-width: 1100px) and (min-width: 761px) { :global(body) { padding: 24px; } .welcome { grid-template-columns: 1.2fr 1fr; } .introduction { padding: 30px 28px 24px; } .masthead-note { display: none; } .destination { padding: 13px 11px; gap: 9px; } .landscape { padding: 34px 28px 25px; } .outward { font-size: 13px; } }
+	@media (max-width: 760px) { :global(body) { padding: 20px; display: block; } .welcome { grid-template-columns: 1fr; min-height: auto; max-width: 540px; margin: 0 auto; border-radius: 24px; } .introduction { padding: 27px 27px 22px; } .masthead { margin-bottom: 37px; } .masthead-note { font-size: 10px; } .profile { gap: 16px; } h1 { font-size: 29px; } .hello { font-size: 12px; } .profile :global(.avatar) { width: 74px; height: 74px; border-radius: 22px; } .bio { font-size: 15px; } .invitation { font-size: 13px; } .landscape { min-height: 420px; padding: 29px 28px 23px; } .landscape-copy { padding-top: 80px; padding-bottom: 39px; } h2 { font-size: 36px; } .landscape-caption { margin-top: 16px; } .landscape-shade { background: linear-gradient(180deg, #081b3566, #07162922 20%, #030b1eda 85%, #030b1ef0); } .mountains { object-position: center 44%; } }
+	@media (max-width: 400px) { :global(body) { padding: 12px; } .introduction { padding: 23px 20px 20px; } .masthead-note { display: none; } h1 { font-size: 25px; } .profile { gap: 12px; } .profile :global(.avatar) { width: 65px; height: 65px; border-radius: 19px; } .destination { padding: 13px 10px; gap: 9px; } .destination-detail { font-size: 11px; } .outward { display: none; } .entry-note-en { font-size: 8px; letter-spacing: .6px; } .intro-footer { font-size: 9px; } }
+	@media (prefers-reduced-motion: reduce) { .welcome { animation: none; } .destination, .enter-blog, .enter-blog :global(svg) { transition: none; } }
+</style>

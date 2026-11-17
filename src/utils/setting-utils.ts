@@ -13,13 +13,17 @@ export function getDefaultHue(): number {
 	return Number.parseInt(configCarrier?.dataset.hue || fallback, 10);
 }
 
+function getHueStorageKey(): string {
+	return document.getElementById("config-carrier")?.dataset.hueKey || "hue:posts";
+}
+
 export function getHue(): number {
-	const stored = localStorage.getItem("hue");
+	const stored = localStorage.getItem(getHueStorageKey());
 	return stored ? Number.parseInt(stored, 10) : getDefaultHue();
 }
 
 export function setHue(hue: number): void {
-	localStorage.setItem("hue", String(hue));
+	localStorage.setItem(getHueStorageKey(), String(hue));
 	const r = document.querySelector(":root") as HTMLElement;
 	if (!r) {
 		return;

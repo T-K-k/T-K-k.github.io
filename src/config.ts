@@ -12,7 +12,7 @@ export const siteConfig: SiteConfig = {
 	subtitle: "记录学习与生活",
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	themeColor: {
-		hue: 250, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
+		hue: 145, // 算法笔记默认绿色；视频文稿在 utils/section-utils.ts 中单独设为蓝色（250）
 		fixed: false, // Hide the theme color picker for visitors
 	},
 	banner: {

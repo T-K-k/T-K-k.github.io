@@ -1,7 +1,9 @@
 ---
 
-import { siteConfig } from "../config";
+import { getSectionTheme } from "../utils/section-utils";
+
+const { hue, storageKey } = getSectionTheme(Astro.url.pathname);
 ---
 
-<div id="config-carrier" data-hue={siteConfig.themeColor.hue}>
+<div id="config-carrier" data-hue={hue} data-hue-key={storageKey}>
 </div>

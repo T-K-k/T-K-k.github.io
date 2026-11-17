@@ -1,0 +1,16 @@
+---
+import ArchivePanel from "../../components/ArchivePanel.svelte";
+import MainGridLayout from "../../layouts/MainGridLayout.astro";
+import { getSortedPostsList } from "../../utils/content-utils";
+
+const entries = await getSortedPostsList("manuscripts");
+---
+
+<MainGridLayout title="文稿归档" description="按时间、分类和标签浏览视频文稿。">
+    {entries.length > 0 ? <ArchivePanel sortedPosts={entries} collection="manuscripts" client:only="svelte" /> :
+        <section class="card-base px-6 md:px-9 py-8">
+            <h1 class="text-3xl font-bold text-90 mb-3">文稿归档</h1>
+            <p class="text-75">还没有已发布的文稿，整理完成后会在这里更新。</p>
+        </section>
+    }
+</MainGridLayout>

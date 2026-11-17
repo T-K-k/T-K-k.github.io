@@ -1,5 +1,6 @@
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
+import type { ContentCollection } from "./content-utils";
 
 export function pathsEqual(path1: string, path2: string) {
 	const normalizedPath1 = path1.replace(/^\/|\/$/g, "").toLowerCase();
@@ -12,23 +13,26 @@ function joinUrl(...parts: string[]): string {
 	return joined.replace(/\/+/g, "/");
 }
 
-export function getPostUrlBySlug(slug: string): string {
-	return url(`/posts/${slug}/`);
+export function getPostUrlBySlug(slug: string, collection: ContentCollection = "posts"): string {
+	const prefix = collection === "manuscripts" ? "/manuscripts/posts/" : "/posts/";
+	return url(`${prefix}${slug}/`);
 }
 
-export function getTagUrl(tag: string): string {
-	if (!tag) return url("/archive/");
-	return url(`/archive/?tag=${encodeURIComponent(tag.trim())}`);
+export function getTagUrl(tag: string, collection: ContentCollection = "posts"): string {
+	const archive = collection === "manuscripts" ? "/manuscripts/archive/" : "/archive/";
+	if (!tag) return url(archive);
+	return url(`${archive}?tag=${encodeURIComponent(tag.trim())}`);
 }
 
-export function getCategoryUrl(category: string | null): string {
+export function getCategoryUrl(category: string | null, collection: ContentCollection = "posts"): string {
+	const archive = collection === "manuscripts" ? "/manuscripts/archive/" : "/archive/";
 	if (
 		!category ||
 		category.trim() === "" ||
 		category.trim().toLowerCase() === i18n(I18nKey.uncategorized).toLowerCase()
 	)
-		return url("/archive/?uncategorized=true");
-	return url(`/archive/?category=${encodeURIComponent(category.trim())}`);
+		return url(`${archive}?uncategorized=true`);
+	return url(`${archive}?category=${encodeURIComponent(category.trim())}`);
 }
 
 export function getDir(path: string): string {

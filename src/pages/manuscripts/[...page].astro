@@ -1,0 +1,32 @@
+---
+import type { GetStaticPaths } from "astro";
+import Pagination from "../../components/control/Pagination.astro";
+import PostPage from "../../components/PostPage.astro";
+import { PAGE_SIZE } from "../../constants/constants";
+import MainGridLayout from "../../layouts/MainGridLayout.astro";
+import { getSortedPosts } from "../../utils/content-utils";
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const entries = await getSortedPosts("manuscripts");
+	return paginate(entries, { pageSize: PAGE_SIZE });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<MainGridLayout title="视频文稿" description="六月雨上街書的视频文字版，记录思考与表达。">
+    <section class="card-base p-6 md:px-9 md:py-7 mb-4">
+        <h1 class="text-3xl font-bold text-90 mb-3 flex items-center gap-3">
+            <span class="h-6 w-1 rounded-full bg-[var(--primary)]" aria-hidden="true"></span>
+            视频文稿
+        </h1>
+        <p class="text-75 leading-relaxed">这里收录我的视频文字版，记录一些思考，也记录一些表达。</p>
+    </section>
+    {page.total > 0 ? <>
+        <PostPage page={page} />
+        <Pagination page={page} basePath="/manuscripts/" class="mx-auto onload-animation" />
+    </> : <section class="card-base px-6 md:px-9 py-8">
+        <h2 class="text-xl font-bold text-90 mb-3">第一篇文稿正在整理中</h2>
+        <p class="text-75 leading-relaxed">发布后，完整文稿会出现在这里。感谢你的等待。</p>
+    </section>}
+</MainGridLayout>

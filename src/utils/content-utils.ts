@@ -3,40 +3,43 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { getCategoryUrl } from "@utils/url-utils.ts";
 
-// // Retrieve posts and sort them by publication date
-async function getRawSortedPosts() {
-	const allBlogPosts = await getCollection("posts", ({ data }) => {
+export type ContentCollection = "posts" | "manuscripts";
+export type ContentEntry = CollectionEntry<ContentCollection>;
+
+// Retrieve published entries from one section only.
+async function getRawSortedPosts(collection: ContentCollection = "posts") {
+	const allBlogPosts = await getCollection(collection, ({ data }) => {
 		return data.draft !== true;
 	});
 
 	const sorted = allBlogPosts.sort((a, b) => {
 		const dateA = new Date(a.data.published);
 		const dateB = new Date(b.data.published);
-		return dateA > dateB ? -1 : 1;
+		return dateB.getTime() - dateA.getTime() || a.slug.localeCompare(b.slug);
 	});
 	return sorted;
 }
 
-export async function getSortedPosts() {
-	const sorted = await getRawSortedPosts();
-
-	for (let i = 1; i < sorted.length; i++) {
-		sorted[i].data.nextSlug = sorted[i - 1].slug;
-		sorted[i].data.nextTitle = sorted[i - 1].data.title;
-	}
-	for (let i = 0; i < sorted.length - 1; i++) {
-		sorted[i].data.prevSlug = sorted[i + 1].slug;
-		sorted[i].data.prevTitle = sorted[i + 1].data.title;
-	}
-
-	return sorted;
+export async function getSortedPosts(collection: ContentCollection = "posts") {
+	const sorted = await getRawSortedPosts(collection);
+	// Derive neighbours from this collection; do not mutate cached entries or trust frontmatter links.
+	return sorted.map((entry, i) => ({
+		...entry,
+		data: {
+			...entry.data,
+			nextSlug: sorted[i - 1]?.slug || "",
+			nextTitle: sorted[i - 1]?.data.title || "",
+			prevSlug: sorted[i + 1]?.slug || "",
+			prevTitle: sorted[i + 1]?.data.title || "",
+		},
+	}));
 }
 export type PostForList = {
 	slug: string;
-	data: CollectionEntry<"posts">["data"];
+	data: ContentEntry["data"];
 };
-export async function getSortedPostsList(): Promise<PostForList[]> {
-	const sortedFullPosts = await getRawSortedPosts();
+export async function getSortedPostsList(collection: ContentCollection = "posts"): Promise<PostForList[]> {
+	const sortedFullPosts = await getRawSortedPosts(collection);
 
 	// delete post.body
 	const sortedPostsList = sortedFullPosts.map((post) => ({
@@ -51,10 +54,8 @@ export type Tag = {
 	count: number;
 };
 
-export async function getTagList(): Promise<Tag[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
-		return data.draft !== true;
-	});
+export async function getTagList(collection: ContentCollection = "posts"): Promise<Tag[]> {
+	const allBlogPosts = await getRawSortedPosts(collection);
 
 	const countMap: { [key: string]: number } = {};
 	allBlogPosts.forEach((post: { data: { tags: string[] } }) => {
@@ -78,10 +79,8 @@ export type Category = {
 	url: string;
 };
 
-export async function getCategoryList(): Promise<Category[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
-		return data.draft !== true;
-	});
+export async function getCategoryList(collection: ContentCollection = "posts"): Promise<Category[]> {
+	const allBlogPosts = await getRawSortedPosts(collection);
 	const count: { [key: string]: number } = {};
 	allBlogPosts.forEach((post: { data: { category: string | null } }) => {
 		if (!post.data.category) {
@@ -107,7 +106,7 @@ export async function getCategoryList(): Promise<Category[]> {
 		ret.push({
 			name: c,
 			count: count[c],
-			url: getCategoryUrl(c),
+			url: getCategoryUrl(c, collection),
 		});
 	}
 	return ret;

@@ -4,6 +4,7 @@ import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
 import { url } from "@utils/url-utils.ts";
 import { onMount } from "svelte";
+import { getSection } from "../utils/section-utils";
 import type { SearchResult } from "@/global";
 
 let keywordDesktop = "";
@@ -64,7 +65,9 @@ const search = async (keyword: string, isDesktop: boolean): Promise<void> => {
 		let searchResults: SearchResult[] = [];
 
 		if (import.meta.env.PROD && pagefindLoaded && window.pagefind) {
-			const response = await window.pagefind.search(keyword);
+			const response = await window.pagefind.search(keyword, {
+				filters: { section: getSection(window.location.pathname) },
+			});
 			searchResults = await Promise.all(
 				response.results.map((item) => item.data()),
 			);

@@ -95,6 +95,7 @@ const destinations = [
 
 				<div class="entry">
 					<div class="entry-note"><span class="status-dot" aria-hidden="true"></span>保持好奇，慢慢积累。<span class="entry-note-en">STAY CURIOUS</span></div>
+					<a class="enter-blog enter-manuscripts" href={url("/manuscripts/")} data-no-swup><span>视频文稿</span><Icon name="material-symbols:description-rounded" /></a>
 					<a class="enter-blog" href={url("/blog/")} data-no-swup><span>进入博客</span><Icon name="material-symbols:arrow-right-alt-rounded" /></a>
 				</div>
 				<footer class="intro-footer"><span>© {new Date().getFullYear()} {profileConfig.name}</span><span>很高兴，你来过。</span></footer>
@@ -150,6 +151,19 @@ const destinations = [
 	.enter-blog :global(svg) { font-size: 28px; transition: transform .2s; }
 	.enter-blog:hover { background: #294d6a; box-shadow: 0 8px 24px #365f7f28; }
 	.enter-blog:hover :global(svg) { transform: translateX(5px); }
+	/* 个人文稿入口 */
+	.enter-blog.enter-manuscripts {
+    	margin-bottom: 12px;
+    	background: #edf3f7;
+    	color: #365f7f;
+    	border: 1px solid #d3e0e9;
+    	box-shadow: none;
+	}
+	/* 鼠标悬停效果 */
+	.enter-blog.enter-manuscripts:hover {
+    	background: #dce9f1;
+    	box-shadow: none;
+	}
 	.intro-footer { display: flex; justify-content: space-between; gap: 12px; font-size: 10px; color: #8595a5; margin-top: 24px; }
 	.landscape { position: relative; isolation: isolate; background: #102339; color: #fff; min-width: 0; display: flex; flex-direction: column; padding: 42px 40px 25px; overflow: hidden; }
 	.mountains, .landscape-shade { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }

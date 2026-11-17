@@ -1,0 +1,20 @@
+---
+import ArticlePage from "@components/ArticlePage.astro";
+import type { ContentEntry } from "@utils/content-utils";
+import { getSortedPosts } from "@utils/content-utils";
+
+export async function getStaticPaths() {
+	const entries = await getSortedPosts("manuscripts");
+	return entries.map((entry) => ({
+		params: { slug: entry.slug },
+		props: { entry },
+	}));
+}
+
+interface Props {
+	entry: ContentEntry;
+}
+const { entry } = Astro.props;
+---
+
+<ArticlePage entry={entry} />

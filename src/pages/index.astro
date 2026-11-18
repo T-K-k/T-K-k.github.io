@@ -11,9 +11,9 @@ const canonical = new URL(url("/"), Astro.site);
 const destinations = [
 	{
 		icon: "fa6-brands:github",
-		label: "GitHub",
-		detail: "T-K-k",
-		href: "https://github.com/T-K-k",
+		label: "bilibili",
+		detail: "我的b站账号",
+		href: "https://space.bilibili.com/3546917824890932",
 		external: true,
 	},
 	{
@@ -28,7 +28,7 @@ const destinations = [
 		label: "关于我",
 		detail: "认识一下",
 		href: url("/about/"),
-		external: true,
+		external: false,
 	},
 	{
 		icon: "material-symbols:rss-feed-rounded",
@@ -78,9 +78,9 @@ const destinations = [
 					</div>
 				</div>
 				<p class="bio">{profileConfig.bio}</p>
-				<p class="invitation">在这里，写下学到的知识，也留住生活的片刻。<br />很高兴与你相遇。</p>
+				<p class="invitation">在这里，你可以看到我的视频文字稿，也可以看到我的算法竞赛学习笔记。<br />很高兴与你相遇。</p>
 				<ul class="interests" aria-label="记录的主题">
-					<li>C++</li><li>算法笔记</li><li>学习与生活</li>
+					<li>视频文稿</li><li>算法笔记</li>
 				</ul>
 
 				<nav class="destinations" aria-label="了解更多">

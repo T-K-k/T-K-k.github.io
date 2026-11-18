@@ -4,7 +4,7 @@ published: 2026-11-17
 description: "从查理的智力提升与衰退，重读《献给阿尔吉侬的花束》，思考知识、孤独、尊严与选择的代价。"
 image: ""
 tags: ["读书", "献给阿尔吉侬的花束", "认知与成长"]
-category: "视频文稿"
+category: "安争鸣"
 draft: false
 lang: "zh_CN"
 ---

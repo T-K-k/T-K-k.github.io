@@ -1,9 +1,36 @@
-# About
-This is the demo site for [Fuwari](https://github.com/saicaca/fuwari).
+# 认识我
 
-::github{repo="saicaca/fuwari"}
+你好，欢迎来到我的个人网站。
 
-> ### Sources of images used in this site
-> - [Unsplash](https://unsplash.com/)
-> - [星と少女](https://www.pixiv.net/artworks/108916539) by [Stella](https://www.pixiv.net/users/93273965)
-> - [Rabbit - v1.4 Showcase](https://civitai.com/posts/586908) by [Rabbit_YourMajesty](https://civitai.com/user/Rabbit_YourMajesty)
+我是六月雨上街書，一名普通的大学生。
+
+我会在这个网站中发布本频道的视频文字稿，也会在我的博客中写算法竞赛以及大学知识的文章。
+
+## 关于这个网站
+
+最初建立这个网站，只是想把我的大学所学习的内容记录下来。
+
+后来又觉得，我的频道的视频的文稿发布到一个网站中。
+
+因此，这里逐渐有了两个不同的栏目。
+
+### 我的博客
+
+我会在博客里写一些大学所学的知识，内容主要均为算法竞赛的内容。
+
+文章不一定严谨，也不一定完整，更多是给自己留下一些记录。
+
+[前往算法笔记](/blog/)
+### 视频文稿
+
+收录我在「六月雨上街書」搬运的视频的文字版本。
+
+希望让我的频道的内容，能够以另一种形式被阅读和保存。
+
+[前往视频文稿](/manuscripts/)
+
+## 最后
+
+这个网站还在慢慢完善。
+
+不一定会经常更新，但希望它能一直存在，记录不同时期的想法与成长。

@@ -8,16 +8,17 @@ import { url } from "../utils/url-utils";
 // the two layouts use full navigation because their Swup containers differ.
 const title = `${profileConfig.name} · ${siteConfig.title}`;
 const canonical = new URL(url("/"), Astro.site);
+
 const destinations = [
 	{
-		icon: "fa6-brands:github",
+		icon: "simple-icons:bilibili",
 		label: "bilibili",
 		detail: "我的b站账号",
 		href: "https://space.bilibili.com/3546917824890932",
 		external: true,
 	},
 	{
-		icon: "material-symbols:inventory-2-outline-rounded",
+		icon: "simple-icons:codeforces",
 		label: "Codeforces",
 		detail: "我的Codeforces",
 		href: "https://codeforces.com/profile/aitouka",
@@ -31,7 +32,7 @@ const destinations = [
 		external: false,
 	},
 	{
-		icon: "material-symbols:rss-feed-rounded",
+		icon: "simple-icons:luogu",
 		label: "洛谷",
 		detail: "我的洛谷主页",
 		href: "https://www.luogu.com.cn/user/662544",
